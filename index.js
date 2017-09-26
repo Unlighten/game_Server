@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:game/game');
 app.use(bodyParser.json({type: '*/*'}));
 router(app);
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 7272;
 
 var server = http.createServer(app);
 
