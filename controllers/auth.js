@@ -2,6 +2,15 @@
 //when a user is signing up or signing out
 
 var User = require('../models/user');
+var jwt = require('jwt-simple');
+var config = require('../config');
+
+
+//creates a user token
+function createUserToken(user){
+	var timestamp = new Date().getTime();
+	return jwt.encode({sub: user.id, iat: timestamp }, config.secret)
+}
 
 
 exports.signup = function(req, res, next){
@@ -37,8 +46,8 @@ exports.signup = function(req, res, next){
 		user.save(function(err){
 			if(err) {return next(err); }
 
-			//this shows us that the user was created
-			res.json({success:true});
+			//this shows us that the user was created with the user token
+			res.json({token: createUserToken(user)});
 		});
 	});
 }
