@@ -10,6 +10,12 @@ exports.signup = function(req, res, next){
 	var username = req.body.username;
 	var password = req.body.password;
 
+	//This is so there needs to be a user and a password
+	//remember we will still need form validation later
+	if(!username || !password){
+		return res.status(418).send({error: 'You must provide your username and password.'});
+	}
+
 	User.findOne({username: username}, function(err, existingUser){
 		//this if statement gives us an error if there was a problem with the search
 		if(err) {
