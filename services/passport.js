@@ -4,6 +4,31 @@ var config = require('../config');
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 
+var LocalStrategy = require('passport-local');
+
+var localOptions = { usernameField: 'username'};
+
+var localLogin = new LocalStrategy(localOptions, function(username, password, done){
+	User.findOne({username: username}, function(err, user){
+		//if there is an error in the search, return early with error object
+		if(err) {return done(err); }
+		//not an error, just user not found
+		if(!user) {return done(null, false); }
+
+
+		user.comparePassword(password, function(err, isMatch){
+			//if there was an error, return early
+			if(err) {return done(err); }
+			//if its not the same, it will return false and say they didnt match
+			if(!isMatch) {return done(null, false); }
+
+			//if same, it will call passport callback with user model
+			return done(null, user);
+		});
+	});
+});
+
+
 var jwtOptions = {
 	jwtFromRequest: ExtractJwt.fromHeader('authorization'),
 	secretOrKey: config.secret
@@ -29,5 +54,6 @@ var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
 
 //This tells passport ot use the function
 passport.use(jwtLogin);
+passport.use(localLogin);
 
 //Auth_request>Passport>Router>Controller>Response
