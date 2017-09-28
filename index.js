@@ -1,14 +1,17 @@
+require('dotenv').config()
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
 var app = express();
 var router = require('./router');
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 //DB connection
-mongoose.connect('mongodb://localhost:game/game');
+mongoose.connect('mongodb://test:test@ds155684.mlab.com:55684/game');
 
 //Middleware
+app.use(cors());
 app.use(bodyParser.json({type: '*/*'}));
 router(app);
 
