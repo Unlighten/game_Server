@@ -10,7 +10,7 @@ var requireSignin = passport.authenticate('local', {session: false});
 //this is suppose to set the route
 module.exports = function(app){
 
-	app.get('/', requireAuth, function(req, res){
+	app.get('/api/', requireAuth, function(req, res){
 		res.send('Homepage');
 	});
 
