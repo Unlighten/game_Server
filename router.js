@@ -10,13 +10,25 @@ var requireSignin = passport.authenticate('local', {session: false});
 //this is suppose to set the route
 module.exports = function(app){
 
-	app.get('/api/', requireAuth, function(req, res){
+
+		//server
+	// app.get('/api/', requireAuth, function(req, res){
+	// 	res.send('Homepage');
+	// });
+
+	// app.get('/api/leaderboard', Leaderboard.getBoard);
+	// app.post('/api/leaderboard', Leaderboard.addLeader);
+
+	// app.post('/api/signup', Auth.signup);
+	// app.post('/api/signin', requireSignin, Auth.signin);
+
+	app.get('/', requireAuth, function(req, res){
 		res.send('Homepage');
 	});
 
-	app.get('/api/leaderboard', Leaderboard.getBoard);
-	app.post('/api/leaderboard', Leaderboard.addLeader);
+	app.get('/leaderboard', Leaderboard.getBoard);
+	app.post('/leaderboard', Leaderboard.addLeader);
 
-	app.post('/api/signup', Auth.signup);
-	app.post('/api/signin', requireSignin, Auth.signin);
+	app.post('/signup', Auth.signup);
+	app.post('/signin', requireSignin, Auth.signin);
 }

@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 var cors = require('cors');
 
 //DB connection
-mongoose.connect('mongodb://test:test@ds155684.mlab.com:55684/game');
-// mongoose.connect('mongodb://localhost/game');
+// mongoose.connect('mongodb://test:test@ds155684.mlab.com:55684/game');
+mongoose.connect('mongodb://localhost/game');
 
 //Middleware
 app.use(cors());
