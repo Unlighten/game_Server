@@ -6,9 +6,9 @@ var userSchema = new Schema({
 	username: {
 		type: String,
 		unique: true
-		// lowercase: true
 	},
 	password: String
+	//mapCount: Integer
 });
 
 
@@ -25,7 +25,7 @@ userSchema.pre('save', function(next){
 			bcrypt.hash(user.password, salt, null, function(err, hash){
 				if (err) {return next(err); }
 
-				//pain text pw = hashed pw
+				//plain text pw = hashed pw
 				user.password = hash;
 				//once its done, save it
 				next();

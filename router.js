@@ -1,5 +1,6 @@
 //remember these variables are how we are importing the other files
 var Auth = require('./controllers/auth');
+let Leaderboard = require('./controllers/leaderboard')
 var passportService = require('./services/passport');
 var passport = require('passport');
 
@@ -13,6 +14,9 @@ module.exports = function(app){
 		res.send('Homepage');
 		//res.send({hi:'there'});
 	});
+
+	app.get('/leaderboard', Leaderboard.getBoard);
+	app.post('/leaderboard', Leaderboard.addLeader);
 
 	app.post('/signup', Auth.signup);
 	app.post('/signin', requireSignin, Auth.signin);
