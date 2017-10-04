@@ -54,5 +54,6 @@ exports.signup = function(req, res, next){
 
 
 exports.signin = function(req, res, next){
+	let token = createUserToken(req.user);
 	res.send({token: createUserToken(req.user) });
 }
