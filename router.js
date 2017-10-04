@@ -12,12 +12,11 @@ module.exports = function(app){
 
 	app.get('/', requireAuth, function(req, res){
 		res.send('Homepage');
-		//res.send({hi:'there'});
 	});
 
-	app.get('/leaderboard', Leaderboard.getBoard);
-	app.post('/leaderboard', Leaderboard.addLeader);
+	app.get('/api/leaderboard', Leaderboard.getBoard);
+	app.post('/api/leaderboard', Leaderboard.addLeader);
 
-	app.post('/signup', Auth.signup);
-	app.post('/signin', requireSignin, Auth.signin);
+	app.post('/api/signup', Auth.signup);
+	app.post('/api/signin', requireSignin, Auth.signin);
 }
